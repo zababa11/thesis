@@ -10,7 +10,7 @@
 - [x] Review on: Interpretable and Globally Optimal Prediction for Textual Grounding using Image Concepts(Raymond A. Yeh, Jinjun Xiong, Wen-mei W. Hwu, Minh N. Do, Alexander G. Schwing) - [Page](http://www.isle.illinois.edu/~yeh17/projects/interpretable_globally/index.html) 
 - [x] Create Markdown List
 - [ ] What is VQA.
-- [ ] Draw pipeline using tikz 
+- [x] Draw pipeline using tikz 
 - [x] Existing Solutions Approach(6-8) High-level survey on how they work
 - [x] Pros & Cons of Related Work
 - [ ] Possible Extensions and Sythesis of Related Work
