@@ -12,7 +12,7 @@
 - [x] Draw pipeline using tikz 
 - [x] Existing Solutions Approach(6-8) High-level survey on how they work
 - [x] Pros & Cons of Related Work
-Work for next week 9/2/2018 - 16/2/2018
+- [ ]Work for next week 9/2/2018 - 16/2/2018
 - [ ] Writing VQA Introduction (What is VQA, Possible Usage of VQA in Domains, etc)
 - [ ] Possible Extensions and Sythesis of Related Work.
 - [ ] Work with N2NMN to understand how it can be used as Shape Detection Mechanism for the basic shapes.
