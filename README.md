@@ -9,9 +9,10 @@
 - [x] Review on: (DRLG)Gated-Attention Architectures for Task-Oriented Language Grounding(Devendra Singh Chaplot, Kanthashree Mysore Sathyendra, Rama Kumar Pasumarthi, Dheeraj Rajagopal, Ruslan Salakhutdinov) - [Page](https://sites.google.com/view/gated-attention/home) - [Code](https://github.com/devendrachaplot/DeepRL-Grounding) - [PDF](https://arxiv.org/pdf/1706.07230.pdf)
 - [x] Review on: Interpretable and Globally Optimal Prediction for Textual Grounding using Image Concepts(Raymond A. Yeh, Jinjun Xiong, Wen-mei W. Hwu, Minh N. Do, Alexander G. Schwing) - [Page](http://www.isle.illinois.edu/~yeh17/projects/interpretable_globally/index.html) 
 - [x] Create Markdown List
-- [ ] What is VQA.
 - [x] Draw pipeline using tikz 
 - [x] Existing Solutions Approach(6-8) High-level survey on how they work
 - [x] Pros & Cons of Related Work
-- [ ] Possible Extensions and Sythesis of Related Work
-- [ ] Possible Usage of VQA in Domains
+Work for next week 9/2/2018 - 16/2/2018
+- [ ] Writing VQA Introduction (What is VQA, Possible Usage of VQA in Domains, etc)
+- [ ] Possible Extensions and Sythesis of Related Work.
+- [ ] Work with N2NMN to understand how it can be used as Shape Detection Mechanism for the basic shapes.
