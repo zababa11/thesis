@@ -12,6 +12,8 @@
 	input/.style = {base, fill=blue!30},
 	process/.style = {base, fill=red!30},
 	output/.style = {base, fill=green!30},
+	start/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+	end/.style={circle, draw=red!60, fill=red!5, very thick, minimum size=7mm},
 }
 
 
@@ -62,9 +64,47 @@
      
      \section{Architecture}
      The Architecture is composed of several parts that pass together to achieve the final Result or as i call it 'Action'.
-     \subsection{Environemnt} The environment is a 3D world with different objects that is generated randomly on every test. The environment randomly selects 20 times from the set $\left\{ Cube, Sphere, Pyramid, Cylinder \right\}$ and for each objects it assigns a random size \textit{s} and color \textit{c}. These Objects are placed in the scene in such a way that they dont overlap with each other. The camera represents the robot which looks at this scene from a 45\textsuperscript{o} angle to mimic a situation where the robot is sitting on a table. A picture is taken of the scene at the time of evaluation. The picture is sent to the Brain which then calls the Shape Detector without giving him information about the number of objects or their shape.
+     \subsection{Environemnt}
+     \begin{tikzpicture}
+  		\node (in)[start]{in};
+     	\node (Shapes)[input, below =1cm of in] {Shapes};
+     	\node (Env) [process, right =1cm of Shapes] {Environment};
+     	\node (Movement)[input, right =1cm of Env] {Movement};
+     	\node (Scene) [output, below = 1cm of Env]{Rendered Scene};
+     	\node (Picture) [output, below = 1cm of Env]{Picture};
+     	\node (Brain) [process, right = 1cm of Picture]{Brain};
+     	\node (in2)[start, below = 1cm of Brain]{in};
+     	\node (out)[end, below =1cm of Picture]{out};
+     	
+     	\draw [semithick,->] (in) -- (Shapes);
+     	\draw [semithick,->] (Shapes) -- (Env);
+     	\draw [semithick,->] (Movement) -- (Env);
+     	\draw [semithick,->] (Env) -- (Picture);
+     	\draw [semithick,->] (Picture) -- (Brain);
+     	\draw [semithick,->] (Brain) -- (Movement);
+     	\draw [semithick,->] (Brain) -- (out);
+     	\draw [semithick,->] (in2) -- (Brain);
+     \end{tikzpicture}\\\\
+      The environment is a 3D world with different objects that is generated randomly on every test. The environment randomly selects 20 times from the set $\left\{ Cube, Sphere, Pyramid, Cylinder \right\}$ and for each objects it assigns a random size \textit{s} and color \textit{c}. These Objects are placed in the scene in such a way that they dont overlap with each other. The camera represents the robot which looks at this scene from a 45\textsuperscript{o} angle to mimic a situation where the robot is sitting on a table. A picture is taken of the scene at the time of evaluation. The picture is sent to the Brain which then calls the Shape Detector without giving him information about the number of objects or their shape.
      \subsection{Shape Detector}
-     The Shape Detector is a model trained to recognize the basic shapes from the set $\left\{ , Sphere, Pyramid, Cylinder \right\}$ in an image taken from the environment. This module outputs an ID, a color, a size and a position for the all the shapes that it detects. The model is a trained End-to-End Modular Network(N2NMN) on the SHAPES Dataset.\\
+     \begin{tikzpicture}
+     \node (Picture) [input]{Picture};
+     \node (Brain) [process, below = 1cm of Picture]{Brain};
+     \node (N2NMN)[process, right =1cm of Picture] {N2NMN};
+     \node (Questions)[input, right =1cm of N2NMN] {Questions};
+	 \node (List) [output, below = 1cm of N2NMN]{Object List};
+	 \node (in)[start, above =1cm of Questions]{in};
+	 \node (in2)[start, below =1cm of Brain]{in};
+         
+     \draw [semithick,->] (Picture) -- (N2NMN);
+     \draw [semithick,->] (Brain) -- (Picture);
+     \draw [semithick,->] (Questions) -- (N2NMN);
+     \draw [semithick,->] (N2NMN) -- (List);
+     \draw [semithick,->] (List) -- (Brain);
+     \draw [semithick,->] (in) -- (Questions);
+     \draw [semithick,->] (in2) -- (Brain);
+     \end{tikzpicture}\\\\
+     The Shape Detector is a model trained to recognize the basic shapes from the set $\left\{Cube , Sphere, Pyramid, Cylinder \right\}$ in an image taken from the environment. This module outputs an ID, a color, a size and a position for the all the shapes that it detects. The model is a trained End-to-End Modular Network(N2NMN) on the SHAPES Dataset.\\
      -TODO MORE INFO ON N2NMN\\
      It receives an image from the environment and then it asks several questions to the model about the image. The questions asked are the following:
      \begin{itemize}
@@ -77,7 +117,29 @@
      	\item Where is the ... placed (for every shape)
      \end{itemize}
  	 The results from this step are sent to the brain so that it has a list of all the objects in the image and their properties. Also the probability \textit{P(x)} for the best 3 possibilities for every property of every object is stored as well. If the Shape Detector says for a certain shape that it has a 50\% chance of being blue, 30\% chance of being green and maybe 20\% for yellow then all 3 results are stored with their probability.
-     \subsection{Score Map Extractor}\
+     \subsection{Score Map Extractor}
+     \begin{tikzpicture}
+     \node (in)[start]{in};
+     \node (User) [process, below =1cm of in]{User};
+     \node (IC) [input, below = 1cm of User]{Input Command};
+     \node (SME)[process, right =1cm of IC] {Score Map Extractor};
+     \node (List)[input, right =1cm of SME] {Object List};
+     \node (Brain) [process, below = 1cm of List]{Brain};
+     \node (ScoreMap) [output, below = 1cm of SME]{Score Map};
+     \node (in2)[start, below =1cm of Brain]{in};
+     \node (out)[end, below =1cm of ScoreMap]{out};
+     
+     \draw [semithick,->] (User) -- (IC);
+     \draw [semithick,->] (IC) -- (SME);
+     \draw [semithick,->] (List) -- (SME);
+     \draw [semithick,->] (SME) -- (ScoreMap);
+     \draw [semithick,->] (Brain) -- (List);
+     \draw [semithick,->] (ScoreMap) -- (Brain);
+     \draw [semithick,->] (in) -- (User);
+     \draw [semithick,->] (in2) -- (Brain);
+     \draw [semithick,->] (Brain) -- (out);
+     
+     \end{tikzpicture}\\\\
      The Score Map Extractor(SME) is called from the Brain to communicate with the user. The SME will first inquire about the action that it will take. The action can be \textit{select, move or remove}. Then it will ask for a description of the object and based on that it will return a score map which will be sent to the Brain. Last if the object has to be moved then it will ask the user for a description of the new location. This location will create a new score map which is also sent to the Brain.\\
      -TODO TEXTUAL GROUNDING USING IMAGE CONCEPTS\\
     
@@ -86,6 +148,25 @@
      
     
      \subsection{Matcher}
+     \begin{tikzpicture}
+     \node (Objects) [input]{List of Objects};
+     \node (Actions) [output, below = 1cm of Objects]{List of Actions};
+     \node (SM)[input, below =1cm of Actions] {Score Map};
+     \node (Command)[input, below =1cm of SM] {Command};
+     \node (Brain) [process, left = 1cm of Actions]{Brain};
+     \node (Matcher) [process, right = 1cm of Actions]{Matcher};
+     \node (in)[start, above =1cm of Brain]{in};
+     
+     \draw [semithick,->] (Objects) -- (Matcher);
+     \draw [semithick,->] (Brain) -- (Objects);
+     \draw [semithick,->] (Actions) -- (Brain);
+     \draw [semithick,->] (Matcher) -- (Actions);
+     \draw [semithick,->] (SM) -- (Matcher);
+     \draw [semithick,->] (Brain) -- (SM);
+     \draw [semithick,->] (Command) -- (Matcher);
+     \draw [semithick,->] (Brain) -- (Command);
+     \draw [semithick,->] (in) -- (Brain);
+     \end{tikzpicture}\\\\
      The Matcher is called by the Brain to decide on the best action to take given the information it has. The matcher receives the list of objects with their properties and then uses the probabilities for every property of every object to decide on which object was most likely to be the one selected by the user. Then depending on the action verb that was selected and the Score Map of the new location it sends to the Brain a list of actions that can be taken and were the most likely to be what the user asked for. These can be several actions in that one could move an object that matches the color but not the shape while the second one can be the opposite. For example if the user says "Move the Red Square to the left" and there happens to be no Red Square but only a Red Cylinder and a Blue Square then both the actions that move these objects will be listed.
 	
 \end{document}
