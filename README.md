@@ -18,6 +18,10 @@
 - [x] Work with Textual Grounding using Image Concepts to understand how it can be used as a ScoreMap Extractor
 - [x] Modify the Pipeline
 - Work for week 23/2/2018 - 2/3/2018
-- [ ] Writing VQA Introduction (What is VQA, Possible Usage of VQA in Domains, etc)
-- [ ] Possible Extensions and Sythesis of Related Work.
-- [ ] Create a smaller Pipeline for every subsection
+- [ ] Writing VQA Introduction (What is VQA, Possible Usage of VQA in Domains, etc)(suspend for the time being)
+- [ ] Possible Extensions and Sythesis of Related Work.(suspend for the time being)
+- [x] Create a smaller Pipeline for every subsection.
+- Work for weeks 2/3/2018 - 16/3/2018
+- [ ] Write Code for Enviroment module.
+- [ ] Update Enviroment section accordingly.
+- [ ] Integrate OpenGL in python or find another way to deal with sending information from c++ to python.
